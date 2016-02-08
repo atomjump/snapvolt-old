@@ -147,9 +147,17 @@ var app = {
 			alert("Filename:" + myoutFile);
 
 			//Append a timestamp to filename
-			var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
-			var mydt = now.format("iso");
-			mydt = mydt.replace(/:/g,'-');
+			//var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
+			//var mydt = now.format("iso");
+			//mydt = mydt.replace(/:/g,'-');
+
+			var mydt = navigator.globalization.dateToString(
+			  new Date(),
+			  function (date) {alert('date:' + date.value + '\n');},
+			  function () {alert('Error getting dateString\n');},
+			  {formatLength:'short', selector:'date and time'}
+			);
+
 
 
             options.fileName = myoutFile + '-' + mydt + '.jpg';
