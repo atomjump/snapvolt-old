@@ -144,38 +144,36 @@ var app = {
             options.fileKey="file1";
             var tempName = document.getElementById("id-entered").value;
             var myoutFile = tempName.replace(/ /g,'-');
-			alert("Filename:" + myoutFile);
-
-			//Append a timestamp to filename
-			//var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
-			//var mydt = now.format("iso");
-			//mydt = mydt.replace(/:/g,'-');
 
 			var mydt = navigator.globalization.dateToString(
 			  new Date(),
-			  function (date) {alert('date:' + date.value + '\n');},
+			  function (date) {
+				  var mydt = date.value.replace(/:/g,'-');
+				  mydt = mydt.replace(/ /g,'-');
+
+				  options.fileName = myoutFile + '-' + mydt + '.jpg';
+
+				  options.mimeType="image/jpeg";
+
+				  var params = new Object();
+				  params.title = document.getElementById("id-entered").value;
+
+
+				  options.params = params;
+				  options.chunkedMode = false;
+
+
+				  var ft = new FileTransfer();
+            	  ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
+
+			  },
 			  function () {alert('Error getting dateString\n');},
 			  {formatLength:'short', selector:'date and time'}
 			);
 
 
 
-            options.fileName = myoutFile + '-' + mydt + '.jpg';
-			alert("FilenameFull:" + options.fileName);
 
-            //Good old: options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-            options.mimeType="image/jpeg";
-
-            var params = new Object();
-            params.title = document.getElementById("id-entered").value;
-
-
-            options.params = params;
-            options.chunkedMode = false;
-
-
-            var ft = new FileTransfer();
-            ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
           } );
         } else {
             alert('No server known');
