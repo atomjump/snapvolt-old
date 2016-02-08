@@ -144,6 +144,7 @@ var app = {
             options.fileKey="file1";
             var tempName = document.getElementById("id-entered").value;
             var myoutFile = tempName.replace(/ /g,'-');
+			alert("Filename:" + myoutFile);
 
 			//Append a timestamp to filename
 			var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
@@ -152,6 +153,7 @@ var app = {
 
 
             options.fileName = myoutFile + '-' + mydt + '.jpg';
+			alert("FilenameFull:" + options.fileName);
 
             //Good old: options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
