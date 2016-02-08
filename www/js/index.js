@@ -138,10 +138,22 @@ var app = {
             deleteThisFile = fileEntry; //Store globally
 
 
+
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            var tempName = document.getElementById("id-entered").value;
+            var myoutFile = tempName.replace(/ /g,'-');
+
+			//Append a timestamp to filename
+			var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
+			var mydt = now.format("iso");
+			mydt = mydt.replace(/:/g,'-');
+
+
+            options.fileName = myoutFile + '-' + mydt + '.jpg';
+
+            //Good old: options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
 
             var params = new Object();
