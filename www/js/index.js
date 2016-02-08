@@ -150,6 +150,7 @@ var app = {
 			  function (date) {
 				  var mydt = date.value.replace(/:/g,'-');
 				  mydt = mydt.replace(/ /g,'-');
+				  mydt = mydt.replace(\\/\g,'-');
 
 				  options.fileName = myoutFile + '-' + mydt + '.jpg';
 
