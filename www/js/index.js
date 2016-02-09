@@ -228,7 +228,7 @@ var app = {
                   var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port.";
                   document.getElementById('override-form').style.display = 'block';
                   cb(err);
-           }, 3000);
+           }, 5000);
 
            networkinterface.getIPAddress(function(ip) {
                _this.ip = ip;
@@ -239,13 +239,27 @@ var app = {
            });
     },
 
+    clearOverride: function() {
+        localStorage.removeItem("overrideServer");
+    
+    },
+
 
     startup: function(overrideServer) {
+    
+        //First called at startup time.
         var _this = this;
         if((document.getElementById("override").value) &&
           (document.getElementById("override").value != '')) {
 
            overrideServer = document.getElementById("override").value;
+           
+           //And save this server
+           localStorage.setItem("overrideServer",overrideServer);
+        } else {
+            //Check if there is a saved server
+            overrideServer = localStorage.getItem("overrideServer");
+        
         }
 
         if(overrideServer) {
@@ -254,28 +268,30 @@ var app = {
 
         if(this.foundServer) {
 
-
+          //We have already found the server
           var server = this.foundServer;
 
-              //OK we already know the server, or did at least
-              //try connecting to it
-              this.get(server, function(url, resp) {
+          //OK we already know the server, or did at least
+          //try connecting to it
+          this.get(server, function(url, resp) {
 
-                 //ok connected alright
-                 clearTimeout(cnct);
-                 _this.takePicture();
+             //ok connected alright
+             clearTimeout(cnct);
+             _this.takePicture();
 
-              });
+          });
 
-              //timeout after 3 secs -rerun this.findServer()
-              var cnct = setTimeout(function() {
-                  alert('Timeout connecting. Please try again.');
-                  _this.foundServer = null;
-               }, 3000);
+          //timeout after 5 secs 
+          var cnct = setTimeout(function() {
+              alert('Timeout connecting. Please try again.');
+              _this.foundServer = null;
+           }, 5000);
 
 
 
         } else {
+        
+            //Otherwise, first time we are running the app this session
              this.findServer(function(err) {
 
                  if(err) {
@@ -329,15 +345,7 @@ var app = {
     }
 
 
-    //TODO: Put into client:
-	//Replace spaces with hyphens
-	/*var myoutFile = outFile.replace(/ /g,'-');
-
-	//Append a timestamp to filename
-	var now = new Date();          // Date {Wed Jul 10 2013 16:47:36 GMT+0300 (EEST)}
-	var mydt = now.format("iso");
-	mydt = mydt.replace(/:/g,'-');
-	*/
+    
 
 
 
