@@ -248,6 +248,7 @@ var app = {
     clearOverride: function() {
         localStorage.clear();
         this.foundServer = null;
+        document.getElementById("override").value = "";
         alert("Cleared default server.");
     
     },
@@ -261,7 +262,7 @@ var app = {
             //Get the default dir after the /write/ string
             var startFrom = startsAt + requiredStr.length;
             this.defaultDir = server.substr(startFrom);
-           
+            
             var properServer = server.substr(0, startsAt);
             return properServer;
         } else {
