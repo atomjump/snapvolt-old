@@ -259,7 +259,8 @@ var app = {
         var startsAt = server.indexOf(requiredStr);  
         if(startsAt > 0) {
             //Get the default dir after the /write/ string
-            this.defaultDir = server.substr(startsAt + requiredStr.length);
+            var startFrom = startsAt + requiredStr.length;
+            this.defaultDir = server.substr(startFrom);
            
             var properServer = server.substr(0, startsAt);
             return properServer;
