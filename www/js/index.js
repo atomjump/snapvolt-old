@@ -142,7 +142,13 @@ var app = {
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
+            
             var tempName = document.getElementById("id-entered").value;
+            if(this.defaultDir) {
+                //A hash code signifies a directory to write to
+                tempName = "#" + this.defaultDir + " " + tempName;
+            } 
+                
             var myoutFile = tempName.replace(/ /g,'-');
 
 			var mydt = navigator.globalization.dateToString(
@@ -240,10 +246,22 @@ var app = {
     },
 
     clearOverride: function() {
-        localStorage.removeItem("overrideServer");
+        localStorage.clear();
+        alert("Cleared default server.");
     
     },
 
+
+    checkDefaultDir: function(server) {
+        //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
+        var requiredStr = "/write/";
+        var startsAt = server.indexOf(requiredStr);  
+        if(startsAt > 0) {
+            //Get the default dir after the /write/ string
+            this.defaultDir = server.substr(startsAt + requiredStr.length);
+        }
+    
+    },
 
     startup: function(overrideServer) {
     
@@ -264,6 +282,7 @@ var app = {
 
         if(overrideServer) {
             this.overrideServer = overrideServer;
+            this.checkDefaultDir(overrideServer);       //Check for a default upload directory
         }
 
         if(this.foundServer) {
