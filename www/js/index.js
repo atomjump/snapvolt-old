@@ -144,7 +144,7 @@ var app = {
             options.fileKey="file1";
             
             var tempName = document.getElementById("id-entered").value;
-            if(this.defaultDir) {
+            if(_this.defaultDir) {
                 //A hash code signifies a directory to write to
                 tempName = "#" + this.defaultDir + " " + tempName;
             } 
@@ -260,6 +260,7 @@ var app = {
         if(startsAt > 0) {
             //Get the default dir after the /write/ string
             this.defaultDir = server.substr(startsAt + requiredStr.length);
+           
             var properServer = server.substr(0, startsAt);
             return properServer;
         } else {
