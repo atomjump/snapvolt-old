@@ -259,6 +259,10 @@ var app = {
         if(startsAt > 0) {
             //Get the default dir after the /write/ string
             this.defaultDir = server.substr(startsAt + requiredStr.length);
+            var properServer = server.substr(0, startsAt);
+            return properServer;
+        } else {
+            return server;
         }
     
     },
@@ -281,8 +285,9 @@ var app = {
         }
 
         if(overrideServer) {
+            overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
-            this.checkDefaultDir(overrideServer);       //Check for a default upload directory
+            
         }
 
         if(this.foundServer) {
