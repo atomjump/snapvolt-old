@@ -145,8 +145,9 @@ var app = {
             
             var tempName = document.getElementById("id-entered").value;
             if(_this.defaultDir) {
+                alert(_this.defaultDir);
                 //A hash code signifies a directory to write to
-                tempName = "#" + this.defaultDir + " " + tempName;
+                tempName = "#" + _this.defaultDir + " " + tempName;
             } 
                 
             var myoutFile = tempName.replace(/ /g,'-');
@@ -258,11 +259,11 @@ var app = {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
         var requiredStr = "/write/";
         var startsAt = server.indexOf(requiredStr);  
-        if(startsAt > 0) {
+        if(startsAt >= 0) {
             //Get the default dir after the /write/ string
             var startFrom = startsAt + requiredStr.length;
             this.defaultDir = server.substr(startFrom);
-            
+            alert(this.defaultDir);
             var properServer = server.substr(0, startsAt);
             return properServer;
         } else {
