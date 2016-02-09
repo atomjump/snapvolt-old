@@ -247,6 +247,7 @@ var app = {
 
     clearOverride: function() {
         localStorage.clear();
+        this.foundServer = null;
         alert("Cleared default server.");
     
     },
