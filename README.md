@@ -9,3 +9,6 @@ ram's change from local machine.
 
 Another odd change
 ram's update
+
+
+OK these are all the readme changes I spoke about in my mini project.
