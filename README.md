@@ -1,5 +1,7 @@
 # snapvolt
 
+__WARNING: this project has now moved to https://src.atomjump.com/atomjump/snapvolt-old.git__
+
 # Testing new change
 ram's change
 
